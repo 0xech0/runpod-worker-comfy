@@ -30,6 +30,19 @@ RUN if [ -z "$SKIP_DEFAULT_MODELS" ]; then wget -O models/checkpoints/sd_xl_base
 RUN if [ -z "$SKIP_DEFAULT_MODELS" ]; then wget -O models/vae/sdxl_vae.safetensors https://huggingface.co/stabilityai/sdxl-vae/resolve/main/sdxl_vae.safetensors; fi
 RUN if [ -z "$SKIP_DEFAULT_MODELS" ]; then wget -O models/vae/sdxl-vae-fp16-fix.safetensors https://huggingface.co/madebyollin/sdxl-vae-fp16-fix/resolve/main/sdxl_vae.safetensors; fi
 
+RUN git clone https://github.com/cubiq/ComfyUI_IPAdapter_plus.git
+WORKDIR /comfyui/custom_nodes/ipadapter
+RUN pip3 install -r requirements.txt
+
+RUN git clone https://github.com/cubiq/ComfyUI_InstantID
+WORKDIR /comfyui/custom_nodes/InstantID
+RUN pip3 install -r requirements.txt
+
+
+RUN git clone https://github.com/rgthree/rgthree-comfy.git
+WORKDIR /comfyui/custom_nodes/rgthree
+RUN pip3 install -r requirements.txt
+
 # Install ComfyUI dependencies
 RUN pip3 install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121 \
     && pip3 install --no-cache-dir xformers==0.0.21 \
